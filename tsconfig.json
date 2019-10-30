@@ -1,0 +1,36 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+      "outDir": "./dist/",
+      "sourceMap": true,
+      "noImplicitAny": true,
+      "strict": true,
+      "module": "esnext",
+      "moduleResolution": "node",
+      "removeComments": false,
+      "target": "es5",
+      "jsx": "react",
+      "baseUrl": "./",
+      "allowJs": true,
+      "experimentalDecorators": true,
+      "lib": [
+        "es6",
+        "es2015",
+        "dom",
+        "es2015.promise"
+      ],
+      "plugins": [
+        {
+          "name": "typescript-tslint-plugin",
+          "alwaysShowRuleFailuresAsWarnings": true,
+          "ignoreDefinitionFiles": true,
+          "configFile": "./tslint.json",
+          "suppressWhileTypeErrorsPresent": false
+        }
+      ]
+  },
+  "include": [
+      "./*.d.ts",
+      "./src/**/*",
+  ]
+}
