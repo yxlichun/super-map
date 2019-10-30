@@ -6,6 +6,7 @@ interface IProps {
   plugins?: AMap.PluginName[];
   mapOptions?: { [key: string]: any };
   style?: any;
+  children?: any;
 }
 
 export const setAMapVersion = (version: string) => {
@@ -42,6 +43,8 @@ function requireMap(callback: () => any) {
     callback();
   }
 }
+
+export const MapContext = React.createContext(null);
 
 function Map(props: IProps) {
   const { plugins, style, mapOptions } = props;
@@ -101,9 +104,13 @@ function Map(props: IProps) {
   }
 
   return(
-    <div style = { containerStyle } ref = { mapContainer }>
-      Map is Loading
-    </div>
+    <MapContext.Provider value = { map }>
+      <div style = { containerStyle } ref = { mapContainer }>
+        Map is Loading
+      </div>
+      { props.children }
+    </MapContext.Provider>
+
   )
 }
 
