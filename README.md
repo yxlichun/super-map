@@ -20,3 +20,11 @@
 
 * TrackPlayer
 * Navigate
+
+#### TrackPlayer
+
+路径播放功能，给定完整路径；
+
+#### Navigate
+
+给定起止点坐标，生成导航路线

@@ -6,7 +6,7 @@ const { useContext, useEffect, useState } = React;
 
 interface IProps {
   polygonOptions: {
-    path: any; //AMap.LocationValue[] | AMap.LocationValue[][] | undefined;
+    path: any; // AMap.LocationValue[] | AMap.LocationValue[][] | undefined;
     [option: string]: any 
   };
   events?: IEvents;
