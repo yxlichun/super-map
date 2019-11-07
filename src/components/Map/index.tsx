@@ -87,6 +87,7 @@ function Map(props: IProps) {
     });
 
     setMap(mapEntity);
+    (Map as any).map = mapEntity;
 
     // 销毁地图
     return () => {

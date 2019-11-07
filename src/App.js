@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import Polygon from './pages/Polygon';
 import Navigate from './pages/Navigate';
+import TrackPlayer from './pages/TrackPlayer';
 
 export default function App() {
   return (
@@ -23,6 +24,9 @@ export default function App() {
             <li>
               <Link to="/navigate">Navigate</Link>
             </li>
+            <li>
+              <Link to="/trackplayer">TrackPlayer</Link>
+            </li>
           </ul>
         </nav>
 
@@ -34,6 +38,9 @@ export default function App() {
           </Route>
           <Route path="/navigate">
             <Navigate />
+          </Route>
+          <Route path="/trackplayer">
+            <TrackPlayer />
           </Route>
           <Route path="/">
             <div>Home</div>
