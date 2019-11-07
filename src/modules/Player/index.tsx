@@ -48,16 +48,17 @@ const Player = styled.div`
 
 const { useState, useRef, useEffect } = React;
 
-export interface IPlayControllerProps {
+export interface PlayerProps {
   range: number[]; // 毫秒级时间戳
   frequency: number; // 十二秒内渲染次数
+  loading?: boolean;
   onPlay?: (time: number) => any;
   onPause?: (time: number) => any;
   onStop?: (time: number) => any;
 }
 
-function PlayController(props: IPlayControllerProps) {
-  const { range, frequency, onPlay, onPause, onStop } = props;
+function PlayController(props: PlayerProps) {
+  const { range, frequency, onPlay, onPause, onStop, loading } = props;
   const currentTime = useRef(0);
 
   const [ left, setLeft ] = useState(0);
@@ -91,36 +92,40 @@ function PlayController(props: IPlayControllerProps) {
   }, [range.join()]);
 
   useEffect(() => {
-    if (playState === 'playing') {
+    if (loading) {
       stopRun();
-
-      const playTimer = setInterval(() => {
-        const nextTime = currentTime.current + speed * interval;
-        currentTime.current = nextTime;
-        setLeft(getLeftByCurrentTime(nextTime));
-        if (onPlay) {
-          onPlay(nextTime);
-        }
-      }, interval);
-
-      setTimer(playTimer);
-    }
-
-    if (playState === 'pause') {
-      stopRun();
-      if (onPause) {
-        onPause(currentTime.current);
+    } else {
+      if (playState === 'playing') {
+        stopRun();
+  
+        const playTimer = setInterval(() => {
+          const nextTime = currentTime.current + speed * interval;
+          currentTime.current = nextTime;
+          setLeft(getLeftByCurrentTime(nextTime));
+          if (onPlay) {
+            onPlay(nextTime);
+          }
+        }, interval);
+  
+        setTimer(playTimer);
       }
-    }
-    if (playState === 'stop') {
-      stopRun();
-      reset();
-      if (onStop) {
-        onStop(currentTime.current);
+  
+      if (playState === 'pause') {
+        stopRun();
+        if (onPause) {
+          onPause(currentTime.current);
+        }
+      }
+      if (playState === 'stop') {
+        stopRun();
+        reset();
+        if (onStop) {
+          onStop(currentTime.current);
+        }
       }
     }
     return stopRun;
-  }, [playState, speed]);
+  }, [playState, speed, loading]);
 
   return (
     <Player left = { left }>
@@ -138,9 +143,10 @@ function PlayController(props: IPlayControllerProps) {
           <div className = "current-time">{secondToDatetime(currentTime.current)}</div>
         </div>
       </div>
-      <div style = {{ position: 'absolute', top: -50 }}>
+      <div style = {{ position: 'absolute', top: -70 }}>
         <div>开始时间：{secondToDatetime(range[0])}</div>
         <div>结束时间：{secondToDatetime(range[1])}</div>
+        <div>{ loading ? 'loading' : 'ready' }</div>
       </div>
       <div>
         <span onClick = { () => setSpeed(1) }>1.x</span>

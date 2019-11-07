@@ -2,7 +2,7 @@ import * as React from 'react';
 
 const { useEffect, useState, useRef } = React;
 
-interface IProps {
+export interface MapProps {
   plugins?: AMap.PluginName[];
   mapOptions?: { [key: string]: any };
   style?: any;
@@ -46,7 +46,7 @@ function requireMap(callback: () => any) {
 
 export const MapContext = React.createContext(null);
 
-function Map(props: IProps) {
+function Map(props: MapProps) {
   const { plugins, style, mapOptions } = props;
 
   const [map, setMap]: [AMap.Map | null, (params: any) => void] = useState(null);
